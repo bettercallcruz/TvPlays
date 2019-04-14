@@ -13,7 +13,7 @@ namespace TvPlays.Models
         public string NameComment { get; set; }
         public DateTime DateComment { get; set; }
 
-
+        //Foreign Key para a tabela Clips
         [ForeignKey("Clips")]
         public int ClipsFK { get; set; }
         public Clips Clips { get; set; }
