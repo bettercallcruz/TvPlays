@@ -8,14 +8,14 @@ namespace TvPlays.Models
 {
     public class Clips
     {
-        public int idClip { get; set; }
-        public TimeSpan timeClip { get; set; }
-        public string titleClip { get; set; }
-        public DateTime dateClip { get; set; }
-        public DateTimeOffset sizeClip { get; set; }
-        public string pathClip { get; set; }
+        public int ID { get; set; }
+        public TimeSpan TimeClip { get; set; }
+        public string TitleClip { get; set; }
+        public DateTime DateClip { get; set; }
+        public DateTimeOffset SizeClip { get; set; }
+        public string PathClip { get; set; }
 
-        public ICollection<Comments> listComments { get; set; }
+        public ICollection<Comments> ListComments { get; set; }
 
 
     }

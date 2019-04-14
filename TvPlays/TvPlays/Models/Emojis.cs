@@ -9,8 +9,8 @@ namespace TvPlays.Models
     public class Emojis
     {
 
-        public int idEmoji { get; set; }
-        public string pathEmoji { get; set; }
+        public int ID { get; set; }
+        public string PathEmoji { get; set; }
         
 
         

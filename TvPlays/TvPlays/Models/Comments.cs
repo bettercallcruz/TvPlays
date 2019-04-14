@@ -8,14 +8,14 @@ namespace TvPlays.Models
 {
     public class Comments
     {
-        public int idComment { get; set; }
-        public string contComment { get; set; }
-        public string nameComment { get; set; }
-        public DateTime dateComment { get; set; }
+        public int ID { get; set; }
+        public string ContComment { get; set; }
+        public string NameComment { get; set; }
+        public DateTime DateComment { get; set; }
 
 
         [ForeignKey("Clips")]
         public int ClipsFK { get; set; }
-        public Clips Clip { get; set; }
+        public Clips Clips { get; set; }
     }
 }
