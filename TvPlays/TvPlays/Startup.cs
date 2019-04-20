@@ -1,5 +1,8 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin;
 using Owin;
+using TvPlays.Models;
 
 [assembly: OwinStartupAttribute(typeof(TvPlays.Startup))]
 namespace TvPlays
@@ -9,6 +12,42 @@ namespace TvPlays
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+
+            iniciaAplicacao();
+        }
+
+        //Inicar aplicacao com as Roles
+
+        private void iniciaAplicacao()
+        {
+
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+
+            // criar a Role 'Admin'
+            if (!roleManager.RoleExists("Admin"))
+            {
+                // não existe a 'role'
+                // então, criar essa role
+                var role = new IdentityRole();
+                role.Name = "Admin";
+                roleManager.Create(role);
+            }
+
+            // criar um utilizador 'Admin'
+            var user = new ApplicationUser();
+            user.UserName = "admin@mail.pt";
+            user.Email = "admin@mail.pt";
+            string userPWD = "admin";
+            var chkUser = userManager.Create(user, userPWD);
+
+            //Adicionar o Utilizador à respetiva Role-Agente-
+            if (chkUser.Succeeded)
+            {
+                var result = userManager.AddToRole(user.Id, "Admin");
+            }
         }
     }
 }

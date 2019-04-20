@@ -19,7 +19,7 @@ namespace TvPlays.Models
         //Foreign Key para a tabela Users
         [ForeignKey("Users")]
         public int UserFK { get; set; }
-        public Users Users { get; set; }
+        public Utilizadores Users { get; set; }
 
         //ICollection de Comentatiros
         public ICollection<Comments> ListComments { get; set; }

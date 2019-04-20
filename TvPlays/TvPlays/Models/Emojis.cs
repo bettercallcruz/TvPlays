@@ -13,7 +13,7 @@ namespace TvPlays.Models
         public string PathEmoji { get; set; }
 
         //ICollection de Users
-        public ICollection<Users> ListUsers { get; set; }
+        public ICollection<Utilizadores> ListUsers { get; set; }
 
 
 

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace TvPlays.Models
 {
-    public class Users
+    public class Utilizadores
     {
 
         public int ID { get; set; }
