@@ -12,14 +12,12 @@ namespace TvPlays.Models
         public TimeSpan TimeClip { get; set; }
         public string TitleClip { get; set; }
         public DateTime DateClip { get; set; }
-        public DateTimeOffset SizeClip { get; set; }
         public string PathClip { get; set; }
 
-
-        //Foreign Key para a tabela Users
-        [ForeignKey("Users")]
-        public int UserFK { get; set; }
-        public Utilizadores Users { get; set; }
+        //Foreign Key para a tabela Utilizadores
+        [ForeignKey("Utilizadores")]
+        public int UtilizadoresFK { get; set; }
+        public Utilizadores Utilizadores { get; set; }
 
         //ICollection de Comentatiros
         public ICollection<Comments> ListComments { get; set; }

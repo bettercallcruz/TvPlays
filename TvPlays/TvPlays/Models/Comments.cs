@@ -10,12 +10,16 @@ namespace TvPlays.Models
     {
         public int ID { get; set; }
         public string ContComment { get; set; }
-        public string NameComment { get; set; }
         public DateTime DateComment { get; set; }
 
         //Foreign Key para a tabela Clips
         [ForeignKey("Clips")]
         public int ClipsFK { get; set; }
         public Clips Clips { get; set; }
+
+        //Foreign Key para a tabela Utilizadores
+        [ForeignKey("Utilizadores")]
+        public int UtilizadoresFK { get; set; }
+        public Utilizadores Utilizadores { get; set; }
     }
 }
