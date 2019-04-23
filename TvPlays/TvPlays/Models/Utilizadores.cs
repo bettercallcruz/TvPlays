@@ -50,5 +50,8 @@ namespace TvPlays.Models
 
         //ICollection de Clips
         public ICollection<Clips> ListClips { get; set; }
+
+        //ICollection de Payments
+        public ICollection<Payments> ListPayments { get; set; }
     }
 }

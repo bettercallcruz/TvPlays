@@ -33,8 +33,6 @@ namespace TvPlays.Migrations
                     Description ="Sou grande génio a programar(CSS não é bem programar xD)"}
             }; 
             utilizadores.ForEach(uu => context.Utilizadores.AddOrUpdate(u => u.ID, uu));
-
-
             context.SaveChanges();
 
             //-----ADICIONA OS CLIPS A BASE DE DADOS

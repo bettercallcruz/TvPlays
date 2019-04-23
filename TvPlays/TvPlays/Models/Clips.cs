@@ -11,9 +11,9 @@ namespace TvPlays.Models
     {
         public int ID { get; set; }
 
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //Nao sei bem o que por aqui como anotação, DEPOIS VER!!
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------------
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
+        [Range(typeof(TimeSpan), "00:00:00", "24:00:00")]
+        [Display(Name = "Duração do Clip")]
         public TimeSpan TimeClip { get; set; }
 
         [Required]
@@ -28,6 +28,7 @@ namespace TvPlays.Models
         public DateTime DateClip { get; set; }
 
         [Required]
+        [Display(Name = "Diretoria do Clip")]
         public string PathClip { get; set; }
 
         //Foreign Key para a tabela Utilizadores

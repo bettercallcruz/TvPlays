@@ -21,6 +21,12 @@ namespace TvPlays
         private void iniciaAplicacao()
         {
 
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //----------------------- USER - ADMIN ---------------------------------------------------------------------------------------------------------------------------------------
+            //---------- admin@mail.pt ------------------
+            //---------- -Admin1 ------------------------
+            //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
             ApplicationDbContext db = new ApplicationDbContext();
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
@@ -40,10 +46,10 @@ namespace TvPlays
             var user = new ApplicationUser();
             user.UserName = "admin@mail.pt";
             user.Email = "admin@mail.pt";
-            string userPWD = "admin";
+            string userPWD = ".Admin1";
             var chkUser = userManager.Create(user, userPWD);
 
-            //Adicionar o Utilizador à respetiva Role-Agente-
+            //Adicionar o Utilizador à respetiva Role-Admin
             if (chkUser.Succeeded)
             {
                 var result = userManager.AddToRole(user.Id, "Admin");
