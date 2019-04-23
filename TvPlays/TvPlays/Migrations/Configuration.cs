@@ -16,11 +16,6 @@ namespace TvPlays.Migrations
 
         protected override void Seed(TvPlays.Models.ApplicationDbContext context)
         {
-
-            //  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            //  --------Falta Fazer a Seed Ate ter 5 a 10 Registos de cada Tabela e tudo Relacionado.Fazer as anotacoes nos Models para ter a certeza que trablahamos com aquele tipo de Variavel. (Regex)
-            //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
             //-----ADICIONA OS UTILIZADORES A BASE DE DADOS
             var utilizadores = new List<Utilizadores>
             {
@@ -38,6 +33,8 @@ namespace TvPlays.Migrations
                     Description ="Sou grande génio a programar(CSS não é bem programar xD)"}
             }; 
             utilizadores.ForEach(uu => context.Utilizadores.AddOrUpdate(u => u.ID, uu));
+
+
             context.SaveChanges();
 
             //-----ADICIONA OS CLIPS A BASE DE DADOS
