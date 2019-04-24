@@ -79,6 +79,9 @@ namespace TvPlays.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        //Referencia que ao Registar um user da Identity iremos tambem usar as propriedades do Model 'Utilizadores'
+        public Utilizadores Utilizador { get; set; }
     }
 
     public class ResetPasswordViewModel

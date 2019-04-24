@@ -20,17 +20,17 @@ namespace TvPlays.Migrations
             var utilizadores = new List<Utilizadores>
             {
                 new Utilizadores {ID=1, Name="Ricardo Bernardes", BirthDate=new DateTime(1995,7,25), Email="ricado.1996@gmail.com", MobileNumber="915899344",
-                    Description ="Sou alTa Player de Rocket League e sinceramente tou ao nivel de competicao professional"},
+                    Description ="Sou alTa Player de Rocket League e sinceramente tou ao nivel de competicao professional", Sexo = "M", ListClips = {}, ListEmojis = {} },
                 new Utilizadores {ID=2, Name="Pedro Cruz", BirthDate=new DateTime(1995,7,25), Email="pedro.cruz@gmail.com", MobileNumber="915899399",
-                    Description ="Nao pesco nada de nada disto"},
+                    Description ="Nao pesco nada de nada disto", Sexo = "M", ListClips = {}, ListEmojis = {} },
                 new Utilizadores {ID=3, Name="Marco Mamelcio", BirthDate = new DateTime(1995,7,25), Email="marco.sushi@gmail.com", MobileNumber="915899789",
-                    Description ="Ate sei jogar mas sou molengao"},
+                    Description ="Ate sei jogar mas sou molengao", Sexo = "M", ListClips = {}, ListEmojis = {} },
                 new Utilizadores {ID=4, Name="Hugo Costa", BirthDate=new DateTime(1995,7,25), Email="hugo.costa@gmail.com", MobileNumber="912345678",
-                    Description ="Eu nem jogo so para nao falar com os meus colegas de casa"},
+                    Description ="Eu nem jogo so para nao falar com os meus colegas de casa", Sexo = "M", ListClips = {}, ListEmojis = {} },
                 new Utilizadores {ID=5, Name="Diogo Plaka", BirthDate = new DateTime(1995,7,25), Email="diogo.plaka@gmail.com", MobileNumber="923456789",
-                    Description ="Eu penso q sou melhor q o Kadito apesar de todos dizerem q nao"},
+                    Description ="Eu penso q sou melhor q o Kadito apesar de todos dizerem q nao", Sexo = "M", ListClips = {}, ListEmojis = {} },
                 new Utilizadores {ID=6, Name="André Carvalho", BirthDate = new DateTime(1995,7,25), Email="andré.carvalho@gmail.com", MobileNumber="934567891",
-                    Description ="Sou grande génio a programar(CSS não é bem programar xD)"}
+                    Description ="Sou grande génio a programar(CSS não é bem programar xD)", Sexo = "M", ListClips = {}, ListEmojis = {} }
             }; 
             utilizadores.ForEach(uu => context.Utilizadores.AddOrUpdate(u => u.ID, uu));
             context.SaveChanges();

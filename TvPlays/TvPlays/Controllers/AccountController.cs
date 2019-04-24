@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -15,6 +16,9 @@ namespace TvPlays.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        //Variavel que ira representar a nossa base de dados
+        public ApplicationDbContext db = new ApplicationDbContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -22,7 +26,7 @@ namespace TvPlays.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +38,9 @@ namespace TvPlays.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -120,7 +124,7 @@ namespace TvPlays.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -147,14 +151,44 @@ namespace TvPlays.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register([Bind(Include = "ID,Name,BirthDate,MobileNumber,Description,Email,Sexo")] Utilizadores utilizador, RegisterViewModel model)
         {
+            //Igualar os Emails tanto da Identity como os do Model Utilizadores
+            utilizador.Email = model.Email;
+
+            //Se não houver Utilizadores na Base de Dados entao iremos por o ID a 1.
+            try
+            {
+                utilizador.ID = db.Utilizadores.Max(p => p.ID) + 1;
+            } catch
+            {
+                utilizador.ID = 1;
+            }
+
+            //Criacao De Listas Vazias
+            utilizador.ListClips = new List<Clips>();
+            utilizador.ListPayments = new List<Payments>();
+            utilizador.ListEmojis = new List<Emojis>();
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //Adicionar o Utilizador a Base de Dados e Guardar a Alteração
+                    db.Utilizadores.Add(utilizador);
+                    db.SaveChanges();
+                    //Associar o utilizador a Role 'NormalUser'
+                    var roleResult = await UserManager.AddToRoleAsync(user.Id, "NormalUser");
+
+                    if (!roleResult.Succeeded)
+                    {
+                        //Pagina de Erro 
+                        //Retorna a pagina de definição 
+                        return View(model);
+                    }
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

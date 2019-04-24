@@ -32,7 +32,7 @@ namespace TvPlays.Models
         [StringLength(500)]
         public string Description { get; set; }
 
-        [Required]
+        //[Required]
         [StringLength(30)]
         [Index(IsUnique = true)]
         [Display(Name = "Email")]

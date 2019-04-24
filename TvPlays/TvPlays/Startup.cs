@@ -42,6 +42,16 @@ namespace TvPlays
                 roleManager.Create(role);
             }
 
+            // criar a Role 'NormalUser'
+            if (!roleManager.RoleExists("NormalUser"))
+            {
+                // não existe a 'role'
+                // então, criar essa role
+                var role = new IdentityRole();
+                role.Name = "NormalUser";
+                roleManager.Create(role);
+            }
+
             // criar um utilizador 'Admin'
             var user = new ApplicationUser();
             user.UserName = "admin@mail.pt";
