@@ -16,8 +16,7 @@ namespace TvPlays
             iniciaAplicacao();
         }
 
-        //Inicar aplicacao com as Roles
-
+        //Inicar aplicacao com as Roles e o criar um utilizador Admin
         private void iniciaAplicacao()
         {
 
