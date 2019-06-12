@@ -13,52 +13,33 @@
 
 </head>
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>*@
-
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" } ,new { @class = "navbar-brand" })
+                    @Html.ActionLink("TvPlays", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </li>
                 <li class="nav-item active">
-                    @Html.ActionLink("Home", "Index", "Home", new { area = "" } ,new { @class = "nav-link" })
+                    @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
                 </li>
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
             @Html.Partial("_LoginPartial")
         </div>
     </nav>
 
-
-
-    <div class="container-fluid fixed-bottom body-content">
+    <div class="body-content">
         @RenderBody()
+    </div>
+
+    <div class="container-fluid fixed-bottom">
+
         <hr />
         <footer class="footer-bs">
-            <div class="row">
+            <div class="row row-eq-height">
                 <div class="col-md-3 footer-brand animated fadeInLeft">
                     <h2>Logo</h2>
                     <p>Suspendisse hendrerit tellus laoreet luctus pharetra. Aliquam porttitor vitae orci nec ultricies. Curabitur vehicula, libero eget faucibus faucibus, purus erat eleifend enim, porta pellentesque ex mi ut sem.</p>
@@ -68,11 +49,8 @@
                     <h4>Menu —</h4>
                     <div class="col-md-6">
                         <ul class="pages">
-                            <li><a href="#">Travel</a></li>
-                            <li><a href="#">Nature</a></li>
-                            <li><a href="#">Explores</a></li>
-                            <li><a href="#">Science</a></li>
-                            <li><a href="#">Advice</a></li>
+                            <li><a href="/">Home</a></li>
+                            
                         </ul>
                     </div>
                     <div class="col-md-6">
@@ -102,7 +80,7 @@
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
                             </span>
-                        </div><!-- /input-group -->
+                        </div>
                     </p>
                 </div>
             </div>
