@@ -82,6 +82,8 @@ namespace TvPlays.Models
 
         //Referencia que ao Registar um user da Identity iremos tambem usar as propriedades do Model 'Utilizadores'
         public Utilizadores Utilizador { get; set; }
+
+        public string RoleName { get; set; }
     }
 
     public class ResetPasswordViewModel

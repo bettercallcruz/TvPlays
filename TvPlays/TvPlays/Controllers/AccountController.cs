@@ -21,6 +21,7 @@ namespace TvPlays.Controllers
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
         public AccountController()
         {
@@ -31,6 +32,19 @@ namespace TvPlays.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
         }
+
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
+
 
         public ApplicationSignInManager SignInManager
         {
@@ -143,6 +157,11 @@ namespace TvPlays.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach(var role in RoleManager.Roles){
+                list.Add(new SelectListItem() { Value = role.Name, Text = role.Name});
+            }
+            ViewBag.Roles = list;
             return View();
         }
 
@@ -180,7 +199,7 @@ namespace TvPlays.Controllers
                     db.Utilizadores.Add(utilizador);
                     db.SaveChanges();
                     //Associar o utilizador a Role 'NormalUser'
-                    var roleResult = await UserManager.AddToRoleAsync(user.Id, "NormalUser");
+                    var roleResult = await UserManager.AddToRoleAsync(user.Id, model.RoleName);
 
                     if (!roleResult.Succeeded)
                     {
