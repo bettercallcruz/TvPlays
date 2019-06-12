@@ -13,7 +13,7 @@ namespace TvPlays.Models
 
         [Required]
         [StringLength(500)]
-        [Display(Name = "Conteudo do Comentário")]
+        [Display(Name = "Conteúdo do Comentário")]
         public string ContComment { get; set; }
 
         [Required]
@@ -23,13 +23,13 @@ namespace TvPlays.Models
         public DateTime DateComment { get; set; }
 
         //Foreign Key para a tabela Clips
-        [ForeignKey("Clips")]
+        [ForeignKey("Clip")]
         public int ClipsFK { get; set; }
-        public Clips Clips { get; set; }
+        public virtual Clips Clip { get; set; }
 
         //Foreign Key para a tabela Utilizadores
-        [ForeignKey("Utilizadores")]
+        [ForeignKey("User")]
         public int UtilizadoresFK { get; set; }
-        public Utilizadores Utilizadores { get; set; }
+        public virtual Utilizadores User { get; set; }
     }
 }

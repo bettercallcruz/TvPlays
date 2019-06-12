@@ -9,6 +9,7 @@ namespace TvPlays.Models
 {
     public class Utilizadores
     {
+        [Key]
         public int ID { get; set; }
 
         [Required]
@@ -41,17 +42,17 @@ namespace TvPlays.Models
 
         [Required]
         [StringLength(1)]
-        [RegularExpression("[Mm]|[Ff]", ErrorMessage = "Insira F/f para Feminino, M/m para Masculino")]
+        [RegularExpression("[MmFf]", ErrorMessage = "Insira F/f para Feminino, M/m para Masculino")]
         [Display(Name = "Sexo")]
         public string Sexo { get; set; }
 
         //ICollection de Emojis
-        public ICollection<Emojis> ListEmojis { get; set; }
+        public virtual ICollection<Emojis> ListEmojis { get; set; }
 
         //ICollection de Clips
-        public ICollection<Clips> ListClips { get; set; }
+        public virtual ICollection<Clips> ListClips { get; set; }
 
         //ICollection de Payments
-        public ICollection<Payments> ListPayments { get; set; }
+        public virtual ICollection<Payments> ListPayments { get; set; }
     }
 }

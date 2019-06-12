@@ -18,7 +18,7 @@ namespace TvPlays.Models
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Titulo do  Clip")]
+        [Display(Name = "Título do  Clip")]
         public string TitleClip { get; set; }
 
         [Required]
@@ -32,12 +32,12 @@ namespace TvPlays.Models
         public string PathClip { get; set; }
 
         //Foreign Key para a tabela Utilizadores
-        [ForeignKey("Utilizadores")]
-        public int UtilizadoresFK { get; set; }
-        public Utilizadores Utilizadores { get; set; }
+        [ForeignKey("User")]
+        public int UserFK { get; set; }
+        public virtual Utilizadores User { get; set; }
 
         //ICollection de Comentatiros
-        public ICollection<Comments> ListComments { get; set; }
+        public virtual ICollection<Comments> ListComments { get; set; }
 
 
     }

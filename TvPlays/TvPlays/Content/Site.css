@@ -1,5 +1,4 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
 }
 
@@ -25,3 +24,23 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+/*CSS para a View do Register*/
+.register_main_div {
+    position: relative;
+    background-color: #575757;
+}
+
+.register_main_div > .register_main_span {
+    display: flex;
+    justify-content: center;
+}
+
+.register_container {
+    position: relative;
+    display: flex;
+    justify-content:center;
+    padding: 10px;
+}
+

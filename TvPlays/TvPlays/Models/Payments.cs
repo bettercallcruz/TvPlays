@@ -15,7 +15,7 @@ namespace TvPlays.Models
 
         [Required]
         [Display(Name = "Valor do Pagamento")]
-        public double Value { get; set; }
+        public Decimal Value { get; set; }
 
         [Required]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -23,11 +23,9 @@ namespace TvPlays.Models
         [Display(Name = "Dia do Pagamento")]
         public DateTime PaymentDay { get; set; }
 
-        [ForeignKey("Utilizadores")]
+        [ForeignKey("User")]
         public int UtilizadoresFK { get; set; }
-        public Utilizadores Utilizadores { get; set; }
-
-
+        public virtual Utilizadores User { get; set; }
 
     }
 }

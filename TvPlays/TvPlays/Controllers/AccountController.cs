@@ -157,13 +157,13 @@ namespace TvPlays.Controllers
             utilizador.Email = model.Email;
 
             //Se não houver Utilizadores na Base de Dados entao iremos por o ID a 1.
-            try
-            {
-                utilizador.ID = db.Utilizadores.Max(p => p.ID) + 1;
-            } catch
-            {
-                utilizador.ID = 1;
-            }
+            //try
+            //{
+            //    utilizador.ID = db.Utilizadores.Max(p => p.ID) + 1;
+            //} catch
+            //{
+            //    utilizador.ID = 1;
+            //}
 
             //Criacao De Listas Vazias
             utilizador.ListClips = new List<Clips>();

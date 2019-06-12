@@ -16,8 +16,12 @@ namespace TvPlays.Models
         [Display(Name = "Diretoria do Emoji")]
         public string PathEmoji { get; set; }
 
+        public string ShortcutToEmoji { get; set; }
+
+        public string Name { get; set; }
+
         //ICollection de Users
-        public ICollection<Utilizadores> ListUsers { get; set; }
+        public virtual ICollection<Utilizadores> ListUsers { get; set; }
 
 
 

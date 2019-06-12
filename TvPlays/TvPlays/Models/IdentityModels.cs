@@ -31,10 +31,11 @@ namespace TvPlays.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<Clips> Clips { get; set; }
-        public DbSet<Emojis> Emojis { get; set; }
-        public DbSet<Comments> Comments { get; set; }
+        //Inicializaçao de todas as tabelas necessárias
         public DbSet<Utilizadores> Utilizadores { get; set; }
+        public DbSet<Clips> Clips { get; set; }
+        public DbSet<Comments> Comments { get; set; }
+        public DbSet<Emojis> Emojis { get; set; }
         public DbSet<Payments> Payments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
