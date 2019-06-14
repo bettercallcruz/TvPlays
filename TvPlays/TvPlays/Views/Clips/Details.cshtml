@@ -1,0 +1,58 @@
+﻿@model TvPlays.Models.Clips
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Clips</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeClip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeClip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TitleClip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TitleClip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateClip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateClip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PathClip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PathClip)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
