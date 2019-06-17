@@ -35,8 +35,6 @@ namespace TvPlays.Controllers
         }
 
 
-
-
         // GET: Role
         public ActionResult Index()
         {
