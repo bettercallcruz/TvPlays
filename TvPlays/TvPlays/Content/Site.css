@@ -4,8 +4,7 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    position:absolute;
-    top:70px;
+    margin-top:80px;
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -25,25 +24,6 @@ textarea {
     max-width: 280px;
 }
 
-
-/*CSS para a View do Register*/
-.register_main_div {
-    position: relative;
-    background-color: #575757;
-}
-
-.register_main_div > .register_main_span {
-    display: flex;
-    justify-content: center;
-}
-
-.register_container {
-    position: relative;
-    display: flex;
-    justify-content:center;
-    padding: 10px;
-}
-
 .footer {
     position: absolute;
     right: 0;
@@ -53,3 +33,38 @@ textarea {
     background-color: #efefef;
     text-align: center;
 }
+
+/*CSS para centrar o Login, ver imagem de tras!*/
+
+.loginContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginForm {
+    padding: 40px;
+    border: solid 1px black;
+}
+
+.loginForm > h2 {
+    margin-bottom: 25px;
+}
+
+/*CSS para centrar o Register, ver imagem de tras!*/
+
+.registerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registerForm {
+    padding: 40px;
+    border: solid 1px black;
+}
+
+.registerContainer > h2 {
+    margin-bottom: 25px;
+}
+

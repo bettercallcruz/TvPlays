@@ -5,10 +5,7 @@
 
 @Styles.Render("~/Content/scc")
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    @*<div class="container register">
+@*<div class="container register">
         <div class="row">
             <div class="col-md-3 register-left">
                 <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
@@ -123,78 +120,63 @@
         </div>
 
     </div>*@
-}
 
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.RoleName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.RoleName, new SelectList(ViewBag.Roles, "Value", "Text"), new { @class = "from-control"})
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Utilizador.Name, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.Utilizador.Name, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Utilizador.BirthDate, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.Utilizador.BirthDate, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Utilizador.MobileNumber, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.Utilizador.MobileNumber, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Utilizador.Sexo, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.Utilizador.Sexo, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Utilizador.Description, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.Utilizador.Description, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
+    <div class="registerContainer">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "registerForm", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h2>@ViewBag.Title.</h2>
+            <hr />
+            <div class="row">
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+            </div>
+            <div class="row form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.LabelFor(m => m.Utilizador.Name, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Utilizador.Name, new { @class = "form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.LabelFor(m => m.Utilizador.BirthDate, new { @class = "control-label" })
+                @Html.EditorFor(m => m.Utilizador.BirthDate, new { @class = "form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.LabelFor(m => m.Utilizador.MobileNumber, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Utilizador.MobileNumber, new { @class = "form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.LabelFor(m => m.Utilizador.Sexo, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Utilizador.Sexo, new { @class = "form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.LabelFor(m => m.Utilizador.Description, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Utilizador.Description, new { @class = "form-control" })
+            </div>
+            <div class="row form-group">
+                <div class="col">
+                    @Html.ActionLink("Already have an account, Sign in!", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
+                </div>
+                <div class="col">  
+                    <input type="submit" class="btn btn-default" value="Register" />
+                </div>
+            </div>
+        }
     </div>
 
-}
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
