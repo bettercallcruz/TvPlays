@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -34,6 +35,13 @@ namespace TvPlays.Controllers
                 return HttpNotFound();
             }
             return View(clips);
+        }
+
+        //GET: video de cada Clip
+        public FileResult VideoClip(string pathClip)
+        {
+            var path = Server.MapPath("~/Assets/images");
+            return File(path + "\\" + pathClip, "video/mp4");
         }
 
         // GET: Clips/Create

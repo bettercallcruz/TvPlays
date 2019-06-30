@@ -9,27 +9,27 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeClip)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TitleClip)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateClip)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PathClip)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card">
+                <video src="@Url.Action("VideoClip", new { pathClip = item.PathClip})">
+
+                </video>
+
+                <div class="card-title">
+                    @Html.DisplayFor(modelItem => item.TitleClip)
+                </div>
+                <a>@Html.DisplayFor(modelItem => item.DateClip)</a>
+            </div>
+        </div>
+    }
+
+    </div>
+
+@*@foreach (var item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.User.Name)
@@ -52,6 +52,4 @@
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
-}
-
-</table>
+}*@
