@@ -38,10 +38,11 @@ namespace TvPlays.Controllers
         }
 
         //GET: video de cada Clip
-        public FileResult VideoClip(string pathClip)
+        public ActionResult VideoClip(string pathClip)
         {
             var path = Server.MapPath("~/Assets/images");
-            return File(path + "\\" + pathClip, "video/mp4");
+            var file = File(path + "\\" + pathClip, "video/mp4");
+            return file;
         }
 
         // GET: Clips/Create

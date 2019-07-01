@@ -4,9 +4,9 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    margin-top:80px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 60px;
+    background: linear-gradient( #010055, #363653);
+    height: 100%;
 }
 
 
@@ -67,4 +67,18 @@ textarea {
 .registerContainer > h2 {
     margin-bottom: 25px;
 }
+
+
+/*CSS para os clips!*/
+.card{
+    width: 475px;
+    align-items: center;
+    margin: 30px;
+}
+
+.card-title{
+    padding-top: 25px;
+    text-align: center;
+}
+
 
