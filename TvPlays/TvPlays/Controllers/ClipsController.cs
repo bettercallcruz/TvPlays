@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,7 +15,22 @@ namespace TvPlays.Controllers
 {
     public class ClipsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationUserManager _userManager;
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+
 
         // GET: Clips
         public ActionResult Index()
@@ -55,19 +72,44 @@ namespace TvPlays.Controllers
         // POST: Clips/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "ID,TimeClip,TitleClip,DateClip,PathClip,UserFK")] Clips clips)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Clips.Add(clips);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    ViewBag.UserFK = new SelectList(db.Utilizadores, "ID", "Name", clips.UserFK);
+        //    return View(clips);
+        //}
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,TimeClip,TitleClip,DateClip,PathClip,UserFK")] Clips clips)
+        public ActionResult Create(HttpPostedFileBase fileupload)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (fileupload != null)
             {
-                db.Clips.Add(clips);
+                string fileName = Path.GetFileName(fileupload.FileName);
+                int fileSize = fileupload.ContentLength;
+                int Size = fileSize / 1000;
+                fileupload.SaveAs(Server.MapPath("~/VideoFileUpload/" + fileName));
+
+                var clip = new Clips
+                {
+                    
+                };
+
+                db.Clips.Add(clip);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
 
-            ViewBag.UserFK = new SelectList(db.Utilizadores, "ID", "Name", clips.UserFK);
-            return View(clips);
+            }
+            return View();
         }
 
         // GET: Clips/Edit/5

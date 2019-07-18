@@ -15,7 +15,7 @@ namespace TvPlays.Models
         [Required]
         [StringLength(50)]
         [Display(Name = "Nome Completo")]
-        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+((-| )((da|de|do|das|dos) )?[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+)+", ErrorMessage = "Insira o seu Nome Completo")]
+        //[RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+((-| )((da|de|do|das|dos) )?[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+)+", ErrorMessage = "Insira o seu Nome Completo")]
         public string Name { get; set; }
 
         [DataType(DataType.Date)]

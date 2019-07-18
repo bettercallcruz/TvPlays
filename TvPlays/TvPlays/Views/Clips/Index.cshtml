@@ -4,8 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -21,34 +19,34 @@
                 <div class="card-body">
                     <video src="@Url.Action("VideoClip", new { pathClip = item.PathClip})" type="video/mp4" controls="true" width="400px"></video>
                 </div>
-                <a class="btn btn-primary">Go to Clip!</a>
+                @Html.ActionLink("Go to Clip!", "Details", new { id = item.ID }, new { @class = "btn btn-primary" })
             </div>
         </div>
     }
-
     </div>
 
+
 @*@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeClip)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TitleClip)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateClip)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PathClip)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}*@
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeClip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TitleClip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateClip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PathClip)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>
+        </tr>
+    }*@
