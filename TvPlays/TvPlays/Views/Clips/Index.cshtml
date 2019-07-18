@@ -9,29 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeClip)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TitleClip)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateClip)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PathClip)
-        </th>
-        <th></th>
-    </tr>
 
-<<<<<<< Updated upstream
-@foreach (var item in Model) {
-=======
 <div class="row">
     @foreach (var item in Model)
     {
@@ -41,39 +19,36 @@
                     <h5>@Html.DisplayFor(modelItem => item.TitleClip)</h5>
                 </div>
                 <div class="card-body">
-                    <video src="@Url.Action("VideoClip", new { pathClip = item.PathClip})" type="video/mp4" width="400px"></video>
+                    <video src="@Url.Action("VideoClip", new { pathClip = item.PathClip})" type="video/mp4" controls="true" width="400px"></video>
                 </div>
-                <a class="btn btn-primary">Go to Clip!</a>
+                @Html.ActionLink("Go to Clip!", "Details", new { id = item.ID }, new { @class = "btn btn-primary" })
             </div>
         </div>
     }
 
-    </div>
+</div>
 
 @*@foreach (var item in Model) {
->>>>>>> Stashed changes
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeClip)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TitleClip)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateClip)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PathClip)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeClip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TitleClip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateClip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PathClip)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>
+        </tr>
+    }*@
