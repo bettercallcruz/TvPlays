@@ -55,37 +55,6 @@ namespace TvPlays.Controllers
         // POST: Clips/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async System.Threading.Tasks.Task<ActionResult> CreateAsync([Bind(Include = "ID,TimeClip,TitleClip,DateClip,PathClip,UserFK")] Clips clips, List<IFormFile> files)
-        {
-            if (ModelState.IsValid)
-            {
-                long size = files.Sum(f => f.Length);
-
-                // full path to file in temp location
-                var path = Server.MapPath("~/Assets/images");
-
-                foreach (var formFile in files)
-                {
-                    if (formFile.Length > 0)
-                    {
-                        using (var stream = new FileStream(path, FileMode.Create))
-                        {
-                            await formFile.CopyToAsync(stream);
-                        }
-                    }
-                }
-
-                db.Clips.Add(clips);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.UserFK = new SelectList(db.Utilizadores, "ID", "Name", clips.UserFK);
-            return View(clips);
-        }
-
         // GET: Clips/Edit/5
         public ActionResult Edit(int? id)
         {
