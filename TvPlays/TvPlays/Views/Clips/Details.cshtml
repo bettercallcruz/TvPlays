@@ -4,10 +4,22 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.TitleClip)</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <video src="@Url.Action("VideoClip", new {pathClip = Model.PathClip})" type="video/mp4" controls="true"></video>
+        </div>
+        <div class="col">
+            @* Comentario a esquerda *@
+        </div>
+    </div>
+</div>
+
+
 
 <div>
-    <h4>Clips</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -52,6 +64,8 @@
 
     </dl>
 </div>
+
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
