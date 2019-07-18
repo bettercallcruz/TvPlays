@@ -13,59 +13,6 @@ namespace TvPlays
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            AppStart();
-        }
-
-
-        private void AppStart()
-        {
-
-            ApplicationDbContext db = new ApplicationDbContext();
-
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-
-            // cria o role 'Administrador' caso não exista
-            if (!roleManager.RoleExists("Admin"))
-            {
-                var role = new IdentityRole();
-                role.Name = "Admin";
-                roleManager.Create(role);
-
-                // cria um utilizador 'Administrador'
-                var user = new ApplicationUser();
-                user.UserName = "admin@mail.pt";
-                user.Email = "admin@mail.pt";
-                string userPWD = "Teste123#$";
-                var chkUser = userManager.Create(user, userPWD);
-
-                // adiciona o utilizador ao role 'Administrador'
-                if (chkUser.Succeeded)
-                {
-                    var result = userManager.AddToRole(user.Id, "Admin");
-                }
-            }
-
-            // cria o role 'Premium' caso não exista
-            if (!roleManager.RoleExists("Premium"))
-            {
-                var role = new IdentityRole();
-                role.Name = "Premium";
-                roleManager.Create(role);
-            }
-
-            // cria o role 'Normal' caso não exista
-            if (!roleManager.RoleExists("Normal"))
-            {
-                // cria o role
-                var role = new IdentityRole();
-                role.Name = "Normal";
-                roleManager.Create(role);
-            }
-
-            // cria a pasta das fotos dos utilizadores se esta não existir
-            var pasta = System.Web.HttpContext.Current.Server.MapPath("~/Assets/images");
-            Directory.CreateDirectory(pasta);
         }
     }
 }
