@@ -14,7 +14,7 @@ namespace TvPlays.Models
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
         public string Username { get; set; }
-        public Func<string, bool> UserRole { get; set; }
+        public bool UserRole { get; internal set; }
     }
 
     public class ManageLoginsViewModel

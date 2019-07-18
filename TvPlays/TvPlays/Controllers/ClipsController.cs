@@ -44,7 +44,8 @@ namespace TvPlays.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clips clips = db.Clips.Find(id);
+            var clips = db.Clips.Include(c => c.ListComments).FirstOrDefault(c => c.ID == id);
+
             if (clips == null)
             {
                 return HttpNotFound();
@@ -96,6 +97,8 @@ namespace TvPlays.Controllers
                 int fileSize = fileupload.ContentLength;
                 int Size = fileSize / 1000;
                 fileupload.SaveAs(Server.MapPath("~/VideoFileUpload/" + fileName));
+
+
 
                 var clip = new Clips
                 {

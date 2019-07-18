@@ -17,11 +17,11 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/
 
 .footer {
     position: absolute;
@@ -68,16 +68,6 @@ textarea {
 }
 
 
-/*CSS para os clips!*/
-.card{
-    width: 475px;
-    align-items: center;
-    margin: 30px;
-}
 
-.card-title{
-    padding-top: 25px;
-    text-align: center;
-}
 
 

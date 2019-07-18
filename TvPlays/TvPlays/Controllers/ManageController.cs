@@ -72,7 +72,8 @@ namespace TvPlays.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                Username = User.Identity.Name
+                Username = User.Identity.Name,
+                UserRole = User.IsInRole("Normal")
             };
             return View(model);
         }

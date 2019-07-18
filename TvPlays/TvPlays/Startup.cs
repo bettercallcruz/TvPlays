@@ -35,13 +35,13 @@ namespace TvPlays
             var user = new ApplicationUser();
             user.UserName = "admin@mail.pt";
             user.Email = "admin@mail.pt";
-            string userPWD = "123Qwe#";
+            string userPWD = "Teste123#$";
             var chkUser = userManager.Create(user, userPWD);
 
             // adiciona o utilizador ao role 'Administrador'
             if (chkUser.Succeeded)
             {
-                var result = userManager.AddToRole(user.Id, "Administrador");
+                var result = userManager.AddToRole(user.Id, "Admin");
             }
         }
 

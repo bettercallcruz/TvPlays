@@ -6,13 +6,32 @@
 
 <h2>@Html.DisplayFor(model => model.TitleClip)</h2>
 
+<hr />
+
 <div class="container-fluid">
     <div class="row">
-        <div class="col">
+        <div class="videoContainer col">
             <video src="@Url.Action("VideoClip", new {pathClip = Model.PathClip})" type="video/mp4" controls="true"></video>
         </div>
-        <div class="col">
+        <div class="commentsContainer col">
             @* Comentario a esquerda *@
+            @foreach (var item in Model.ListComments)
+            {
+                <div class="comment row">
+                    <div class="col">
+                        <h5>@Html.DisplayFor(modelItem => item.User.Name)</h5>
+                        @Html.DisplayFor(modelItem => item.ContComment)
+                    </div>
+                </div>
+                <hr />
+            }
+            <div class="commentInput row">
+                <textarea rows="2" cols="50" name="comment" form="usrform">
+                Enter your comment here...
+                </textarea>
+                <input type="submit" value="Comentar" class="btn btn-dark" />
+            </div>
+            @Html.ActionLink("Create New", "Create", "Comments")
         </div>
     </div>
 </div>
