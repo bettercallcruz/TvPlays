@@ -29,7 +29,29 @@
         <th></th>
     </tr>
 
+<<<<<<< Updated upstream
 @foreach (var item in Model) {
+=======
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="cardcol col">
+            <div class="card">
+                <div class="card-title">
+                    <h5>@Html.DisplayFor(modelItem => item.TitleClip)</h5>
+                </div>
+                <div class="card-body">
+                    <video src="@Url.Action("VideoClip", new { pathClip = item.PathClip})" type="video/mp4" width="400px"></video>
+                </div>
+                <a class="btn btn-primary">Go to Clip!</a>
+            </div>
+        </div>
+    }
+
+    </div>
+
+@*@foreach (var item in Model) {
+>>>>>>> Stashed changes
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.User.Name)
