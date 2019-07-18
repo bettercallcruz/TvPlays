@@ -30,8 +30,6 @@ namespace TvPlays.Controllers
             }
         }
 
-
-
         // GET: Clips
         public ActionResult Index()
         {
