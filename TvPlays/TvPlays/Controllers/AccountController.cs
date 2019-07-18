@@ -199,7 +199,7 @@ namespace TvPlays.Controllers
                     db.Utilizadores.Add(utilizador);
                     db.SaveChanges();
                     //Associar o utilizador a Role 'NormalUser'
-                    var roleResult = await UserManager.AddToRoleAsync(user.Id, model.RoleName);
+                    var roleResult = await UserManager.AddToRoleAsync(user.Id, "Normal");
 
                     if (!roleResult.Succeeded)
                     {
