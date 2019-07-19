@@ -100,12 +100,7 @@ namespace TvPlays.Controllers
                 string fileName = Path.GetFileName(fileupload.FileName);
                 int fileSize = fileupload.ContentLength;
                 int Size = fileSize / 1000;
-                fileupload.SaveAs(Server.MapPath("~/VideoFileUpload/" + fileName));
 
-
-
-                var clip = new Clips
-                {
                 string path = Server.MapPath("~/Assets/images/" + fileName);
                 fileupload.SaveAs(path);
 
