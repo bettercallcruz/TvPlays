@@ -31,7 +31,9 @@
                             <span>✏️</span>
                         </div>
                         <div class="deleteIcon row">
-                            <span>🗑️</span>
+                            <a href="@Url.Action("Delete", "Comments", new { id = item.ID})">
+                                <span>🗑️</span>
+                            </a>
                         </div>
                     </div>
                 }
@@ -40,7 +42,9 @@
                 {
                     <div class="col">
                         <div class="deleteIcon row">
-                            <span>🗑️</span>
+                            <a href="@Url.Action("Delete", "Comments", new { id = item.ID})">
+                                <span>🗑️</span>
+                            </a>
                         </div>
                     </div>
                 }

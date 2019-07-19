@@ -140,10 +140,28 @@ namespace TvPlays.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            //Ir buscar o User e o Comment a base de dados
+            Utilizadores user = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
             Comments comments = db.Comments.Find(id);
-            db.Comments.Remove(comments);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            //Verificar se eles existem
+            if(user == null || comments == null)
+            {
+                return HttpNotFound();
+            }
+
+            //Verificar se o utilizador Autenticado e mesmo o dono do Comment, se realiza-se a remoção
+            if (user.ID.Equals(comments.UtilizadoresFK))
+            {
+                db.Comments.Remove(comments);
+                db.SaveChanges();
+                //return RedirectToAction("Index");
+            }
+            else
+            {
+                //Erro porque o comment nao e dele
+            }
+            return View(comments);
         }
 
         protected override void Dispose(bool disposing)
