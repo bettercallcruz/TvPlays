@@ -19,20 +19,7 @@ namespace TvPlays.Controllers
     public class ClipsController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
-        private ApplicationUserManager _userManager;
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
+      
         // GET: Clips
         public ActionResult Index()
         {
@@ -100,7 +87,11 @@ namespace TvPlays.Controllers
                 string fileName = Path.GetFileName(fileupload.FileName);
                 int fileSize = fileupload.ContentLength;
                 int Size = fileSize / 1000;
+<<<<<<< Updated upstream
 
+=======
+             
+>>>>>>> Stashed changes
                 string path = Server.MapPath("~/Assets/images/" + fileName);
                 fileupload.SaveAs(path);
 
