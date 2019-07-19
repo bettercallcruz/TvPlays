@@ -38,10 +38,10 @@ namespace TvPlays.Migrations
             //-----ADICIONA OS CLIPS A BASE DE DADOS
             var clips = new List<Clips>
             {
-                new Clips {ID=1, DateClip=new DateTime(1996, 5, 24, 12, 0, 0), TitleClip="Biggest Play on Rocket League", PathClip="biggestplay.mp4", UserFK=1, TimeClip= new TimeSpan(00, 4, 33)},
-                new Clips {ID=2, DateClip=new DateTime(1996, 5, 24, 12, 0, 0), TitleClip="Anuncio TvPlays", PathClip="TvPlaysAD.mp4", UserFK=2, TimeClip= new TimeSpan(00, 3, 05)},
-                new Clips {ID=3, DateClip=new DateTime(1996, 5, 24, 12, 0, 0), TitleClip="Avaliem o meu jogo", PathClip="rocketReview.mp4", UserFK=3, TimeClip= new TimeSpan(00, 5, 10)},
-                new Clips {ID=4, DateClip=new DateTime(1996, 5, 24, 12, 0, 0), TitleClip="BIG AWP SHOT by ZorlaRusky", PathClip="bigshotRusky.mp4", UserFK=4, TimeClip= new TimeSpan(00, 2, 45)}
+                new Clips {ID=1, DateClip=new DateTime(1996, 5, 24, 12, 0, 0), TitleClip="Biggest Play on Rocket League", PathClip="biggestplay.mp4", UserFK=1},
+                new Clips {ID=2, DateClip=new DateTime(1996, 5, 24, 12, 0, 0), TitleClip="Anuncio TvPlays", PathClip="TvPlaysAD.mp4", UserFK=2 },
+                new Clips {ID=3, DateClip=new DateTime(1996, 5, 24, 12, 0, 0), TitleClip="Avaliem o meu jogo", PathClip="rocketReview.mp4", UserFK=3},
+                new Clips {ID=4, DateClip=new DateTime(1996, 5, 24, 12, 0, 0), TitleClip="BIG AWP SHOT by ZorlaRusky", PathClip="bigshotRusky.mp4", UserFK=4}
             };
             clips.ForEach(cc => context.Clips.AddOrUpdate(c => c.ID, cc));
             context.SaveChanges();

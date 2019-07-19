@@ -11,11 +11,6 @@ namespace TvPlays.Models
     {
         public int ID { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
-        [Range(typeof(TimeSpan), "00:00:00", "24:00:00")]
-        [Display(Name = "Duração do Clip")]
-        public TimeSpan TimeClip { get; set; }
-
         [Required]
         [StringLength(50)]
         [Display(Name = "Título do  Clip")]
@@ -39,6 +34,16 @@ namespace TvPlays.Models
         //ICollection de Comentatiros
         public virtual ICollection<Comments> ListComments { get; set; }
 
+
+    }
+
+
+    public class ClipsDTO {
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Título do  Clip")]
+        public string TitleClip { get; set; }
 
     }
 }
