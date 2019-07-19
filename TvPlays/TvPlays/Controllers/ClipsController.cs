@@ -19,7 +19,6 @@ namespace TvPlays.Controllers
     public class ClipsController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
-<<<<<<< Updated upstream
         private ApplicationUserManager _userManager;
 
         public ApplicationUserManager UserManager
@@ -33,8 +32,6 @@ namespace TvPlays.Controllers
                 _userManager = value;
             }
         }
-=======
->>>>>>> Stashed changes
 
         // GET: Clips
         public ActionResult Index()
@@ -101,7 +98,6 @@ namespace TvPlays.Controllers
             if (fileupload != null)
             {
                 string fileName = Path.GetFileName(fileupload.FileName);
-<<<<<<< Updated upstream
                 int fileSize = fileupload.ContentLength;
                 int Size = fileSize / 1000;
                 fileupload.SaveAs(Server.MapPath("~/VideoFileUpload/" + fileName));
@@ -110,8 +106,6 @@ namespace TvPlays.Controllers
 
                 var clip = new Clips
                 {
-                    
-=======
                 string path = Server.MapPath("~/Assets/images/" + fileName);
                 fileupload.SaveAs(path);
 
@@ -120,7 +114,6 @@ namespace TvPlays.Controllers
                     PathClip = path,
                     DateClip = DateTime.Now,
                     UserFK = user2.ID
->>>>>>> Stashed changes
                 };
 
                 db.Clips.Add(clip);
@@ -129,11 +122,6 @@ namespace TvPlays.Controllers
             }
             return View();
         }
-
-
-
-
-
 
         // GET: Clips/Edit/5
         public ActionResult Edit(int? id)
