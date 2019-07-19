@@ -55,12 +55,18 @@ namespace TvPlays.Controllers
             {
 
                 var user = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
+                var clip = db.Clips.Find(id);
+
+                if(user == null || clip == null)
+                {
+                    return HttpNotFound();
+                }
 
                 var comment = new Comments
                 {
                     ContComment = comments.ContComment,
                     DateComment = DateTime.UtcNow,
-                    ClipsFK = id.Value,
+                    ClipsFK = clip.ID,
                     UtilizadoresFK = user.ID
                 };
 
@@ -69,8 +75,6 @@ namespace TvPlays.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClipsFK = new SelectList(db.Clips, "ID", "TitleClip", comments.ClipsFK);
-            ViewBag.UtilizadoresFK = new SelectList(db.Utilizadores, "ID", "Name", comments.UtilizadoresFK);
             return View(comments);
         }
 

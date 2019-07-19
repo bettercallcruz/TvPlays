@@ -24,13 +24,17 @@
     justify-content: center;
 }
 
-.commentInput{
+#ContComment {
+    width: 100%;
+}
+
+.commentInput {
     padding: 10px;
     justify-content: center;
 }
 
 .commentInput > textarea {
-    width: 100%;
+    
 }
 
 .commentInput > input {

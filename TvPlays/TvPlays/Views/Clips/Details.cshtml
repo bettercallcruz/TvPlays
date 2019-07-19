@@ -25,13 +25,7 @@
                 </div>
                 <hr />
             }
-            <div class="commentInput row">
-                <textarea rows="2" cols="50" name="comment" form="usrform">
-                Enter your comment here...
-                </textarea>
-                <input type="submit" value="Comentar" class="btn btn-dark" />
-            </div>
-            @Html.ActionLink("Create New", "Create", "Comments")
+            @Html.Action("Create", "Comments", new { id = Model.ID }) 
         </div>
     </div>
 </div>

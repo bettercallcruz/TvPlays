@@ -16,7 +16,6 @@ namespace TvPlays.Models
         [Display(Name = "Conteúdo do Comentário")]
         public string ContComment { get; set; }
 
-        [Required]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         [Display(Name = "Data do Comentário")]
