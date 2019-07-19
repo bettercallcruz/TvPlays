@@ -47,8 +47,11 @@ namespace TvPlays.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            // Incluir a lista de comentarios no Clip para ter acesso a eles
             var clips = db.Clips.Include(c => c.ListComments).FirstOrDefault(c => c.ID == id);
 
+            //Se nao houver o clip dar View de erro  
             if (clips == null)
             {
                 return HttpNotFound();
