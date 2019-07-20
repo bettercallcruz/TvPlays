@@ -52,50 +52,63 @@ namespace TvPlays.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                Utilizadores user = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
 
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Payments payment = new Payments
+                {
+                    Value = payments.Value,
+                    PaymentDay = DateTime.UtcNow,
+                    UtilizadoresFK = user.ID
+                };
 
                 db.Payments.Add(payments);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.UtilizadoresFK = new SelectList(db.Utilizadores, "ID", "Name", payments.UtilizadoresFK);
-            return View(payments);
-        }
-
-        // GET: Payments/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Payments payments = db.Payments.Find(id);
-            if (payments == null)
-            {
-                return HttpNotFound();
+                //Voltar para a View Index do 'Manage'  
+                //return RedirectToAction("Index");
             }
             ViewBag.UtilizadoresFK = new SelectList(db.Utilizadores, "ID", "Name", payments.UtilizadoresFK);
             return View(payments);
         }
 
-        // POST: Payments/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Value,PaymentDay,UtilizadoresFK")] Payments payments)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(payments).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.UtilizadoresFK = new SelectList(db.Utilizadores, "ID", "Name", payments.UtilizadoresFK);
-            return View(payments);
-        }
+        //Nao faz sentido alguem conseguir editar um pagamento, ate mesmo o 'Admin'
+
+        //// GET: Payments/Edit/5
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Payments payments = db.Payments.Find(id);
+        //    if (payments == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.UtilizadoresFK = new SelectList(db.Utilizadores, "ID", "Name", payments.UtilizadoresFK);
+        //    return View(payments);
+        //}
+
+        //// POST: Payments/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "ID,Value,PaymentDay,UtilizadoresFK")] Payments payments)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(payments).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.UtilizadoresFK = new SelectList(db.Utilizadores, "ID", "Name", payments.UtilizadoresFK);
+        //    return View(payments);
+        //}
 
         // GET: Payments/Delete/5
         public ActionResult Delete(int? id)
