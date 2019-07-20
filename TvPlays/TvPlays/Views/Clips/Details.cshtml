@@ -8,24 +8,49 @@
 
 <hr />
 
+
 <div class="container-fluid">
     <div class="row">
         <div class="videoContainer col">
             <video src="@Url.Action("VideoClip", new {pathClip = Model.PathClip})" type="video/mp4" controls="true"></video>
         </div>
         <div class="commentsContainer col">
-            @* Comentario a esquerda *@
+            @* Percore todos os comentarios associados ao Clip e lista-os *@
             @foreach (var item in Model.ListComments)
             {
-                <div class="comment row">
-                    <div class="col">
-                        <h5>@Html.DisplayFor(modelItem => item.User.Name)</h5>
-                        @Html.DisplayFor(modelItem => item.ContComment)
-                    </div>
+            <div class="comment row">
+                <div class="col">
+                    <h5>@Html.DisplayFor(modelItem => item.User.Name)</h5>
+                    @Html.DisplayFor(modelItem => item.ContComment)
                 </div>
+                @* Se o user for o dono do Comment entao pode apagar e editar *@
+                @if (User.Identity.Name.Equals(item.User.Email))
+                {
+                    <div class="col">
+                        <div class="editIcon row">
+                            <span>✏️</span>
+                        </div>
+                        <div class="deleteIcon row">
+                            <span>🗑️</span>
+                        </div>
+                    </div>
+                }
+                @* Se for o admin pode eliminar o comentario *@
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="col">
+                        <div class="deleteIcon row">
+                            <span>🗑️</span>
+                        </div>
+                    </div>
+                }
+            </div>
                 <hr />
             }
-            @Html.Action("Create", "Comments", new { id = Model.ID }) 
+            @* Tem de estar autenticado e os 'Admin' nao podem fazer comentarios *@
+            @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin")) {
+                @Html.Action("Create", "Comments", new { id = Model.ID})
+            }
         </div>
     </div>
 </div>

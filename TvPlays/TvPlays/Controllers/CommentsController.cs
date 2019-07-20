@@ -37,6 +37,7 @@ namespace TvPlays.Controllers
         }
 
         // GET: Comments/Create
+        [HttpGet]
         public ActionResult Create()
         {
             ViewBag.ClipsFK = new SelectList(db.Clips, "ID", "TitleClip");
@@ -47,21 +48,24 @@ namespace TvPlays.Controllers
         // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // E passado o id no Post por parametro para fazer a relacao
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ContComment")] Comments comments, int? id)
         {
             if (ModelState.IsValid)
             {
-
+                //Buscar o User asociado e o clip
                 var user = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
                 var clip = db.Clips.Find(id);
 
+                //retorna uma view de erro se nao encontrar o user ou o clip
                 if(user == null || clip == null)
                 {
                     return HttpNotFound();
                 }
 
+                //Criar o comentario
                 var comment = new Comments
                 {
                     ContComment = comments.ContComment,
@@ -70,11 +74,14 @@ namespace TvPlays.Controllers
                     UtilizadoresFK = user.ID
                 };
 
+                //Adiciona a base de dados e Guarda
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
+                //Tentar dar redirect para os clips '/Clips/Details/X'
+
+            }
+            //Se o modelo nao tiver valiado apresentar erro
             return View(comments);
         }
 
