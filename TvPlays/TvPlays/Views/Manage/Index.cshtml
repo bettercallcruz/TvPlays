@@ -50,13 +50,7 @@
     <div class="col">
         @if (User.IsInRole("Normal"))
         {
-            <div>
-                <div class="col">
-                    <p>Unlimited Uploads!!</p>
-                    <p>A lot of new changes!!</p>
-                    <button type="button" class="btn btn-success">Turn into a Premium User</button>
-                </div>
-            </div>
+            @Html.Action("Create", "Payments")
         }
     </div>
 </div>

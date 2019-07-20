@@ -51,13 +51,13 @@ namespace TvPlays.Controllers
         // E passado o id no Post por parametro para fazer a relacao
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ContComment")] Comments comments, int? id)
+        public ActionResult Create([Bind(Include = "ContComment")] Comments comments, int id)
         {
             if (ModelState.IsValid)
             {
-                //Buscar o User asociado e o clip
-                var user = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
-                var clip = db.Clips.Find(id);
+                //Buscar o User associado e o clip
+                Utilizadores user = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
+                Clips clip = db.Clips.Find(id);
 
                 //retorna uma view de erro se nao encontrar o user ou o clip
                 if(user == null || clip == null)
@@ -107,13 +107,25 @@ namespace TvPlays.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ContComment,DateComment,ClipsFK,UtilizadoresFK")] Comments comments)
+        public ActionResult Edit([Bind(Include = "ID, ContComment")] Comments comments)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(comments).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                Utilizadores user = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
+                Comments comment = db.Comments.Find(comments.ID);
+
+                //Verificar se o utilizador Autenticado e mesmo o dono do Comment, se for realiza-se a remoção
+                if (user.ID.Equals(comment.UtilizadoresFK))
+                {
+                    comment.ContComment = comments.ContComment;
+                    db.Entry(comment).State = EntityState.Modified;
+                    db.SaveChanges();
+                    //return RedirectToAction("Index");
+                }
+                else
+                {
+                    //Erro porque o comment nao e dele
+                }
             }
             ViewBag.ClipsFK = new SelectList(db.Clips, "ID", "TitleClip", comments.ClipsFK);
             ViewBag.UtilizadoresFK = new SelectList(db.Utilizadores, "ID", "Name", comments.UtilizadoresFK);
@@ -140,10 +152,35 @@ namespace TvPlays.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            //Ir buscar o User e o Comment a base de dados
+            Utilizadores user = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
             Comments comments = db.Comments.Find(id);
-            db.Comments.Remove(comments);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            //Se for Admin pode apagar qualquer Comment antes da verificacao do User == null && comment == null 
+            //porque o admin nao e um Utilizador mas sim um User da Identity
+            if (User.IsInRole("Admin"))
+            {
+                db.Comments.Remove(comments);
+                db.SaveChanges();
+            }
+
+            //Verificar se eles existem
+            if (user == null || comments == null)
+            {
+                return HttpNotFound();
+            }
+
+            //Verificar se o utilizador Autenticado e mesmo o dono do Comment, se for realiza-se a remoção
+            if (user.ID.Equals(comments.UtilizadoresFK))
+            {
+                db.Comments.Remove(comments);
+                db.SaveChanges();
+                //return RedirectToAction("Index");
+            } else
+            {
+                //Erro porque o comment nao e dele
+            }
+            return View(comments);
         }
 
         protected override void Dispose(bool disposing)
