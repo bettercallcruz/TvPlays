@@ -62,11 +62,11 @@ namespace TvPlays.Controllers
                 Payments payment = new Payments
                 {
                     Value = payments.Value,
-                    PaymentDay = DateTime.UtcNow,
+                    PaymentDay = DateTime.Now,
                     UtilizadoresFK = user.ID
                 };
 
-                db.Payments.Add(payments);
+                db.Payments.Add(payment);
                 db.SaveChanges();
                 //Voltar para a View Index do 'Manage'  
                 //return RedirectToAction("Index");
