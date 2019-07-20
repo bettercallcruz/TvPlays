@@ -49,8 +49,8 @@ namespace TvPlays.Controllers
         //GET: video de cada Clip
         public ActionResult VideoClip(string pathClip)
         {
-            var path = Server.MapPath("~/Assets/images");
-            var file = File(path + "\\" + pathClip, "video/mp4");
+            var path = Server.MapPath("~/App_Data/Videos/");
+            var file = File(pathClip, "video/mp4");
             return file;
         }
 
@@ -88,14 +88,8 @@ namespace TvPlays.Controllers
             if (fileupload != null)
             {
                 string fileName = Path.GetFileName(fileupload.FileName);
-                int fileSize = fileupload.ContentLength;
-                int Size = fileSize / 1000;
-<<<<<<< Updated upstream
-
-=======
-             
->>>>>>> Stashed changes
-                string path = Server.MapPath("~/Assets/images/" + fileName);
+                string cont = fileupload.ContentType;
+                string path = Server.MapPath("~/App_Data/Videos/" + fileName);
                 fileupload.SaveAs(path);
 
                 var clip = new Clips { 
