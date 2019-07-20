@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -52,6 +54,8 @@ namespace TvPlays.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+
                 Utilizadores user = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
 
                 if (user == null)
@@ -66,74 +70,21 @@ namespace TvPlays.Controllers
                     UtilizadoresFK = user.ID
                 };
 
+                var user2 = db.Users.SingleOrDefault(u => u.UserName.Equals(User.Identity.Name));
+
                 db.Payments.Add(payment);
                 db.SaveChanges();
+
+                userManager.RemoveFromRole(user2.Id , "Normal");
+                userManager.AddToRole(user2.Id, "Premium");
+
+                db.Entry(user).State = EntityState.Modified;
+
                 //Voltar para a View Index do 'Manage'  
                 //return RedirectToAction("Index");
             }
             ViewBag.UtilizadoresFK = new SelectList(db.Utilizadores, "ID", "Name", payments.UtilizadoresFK);
             return View(payments);
-        }
-
-        //Nao faz sentido alguem conseguir editar um pagamento, ate mesmo o 'Admin'
-
-        //// GET: Payments/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Payments payments = db.Payments.Find(id);
-        //    if (payments == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ViewBag.UtilizadoresFK = new SelectList(db.Utilizadores, "ID", "Name", payments.UtilizadoresFK);
-        //    return View(payments);
-        //}
-
-        //// POST: Payments/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "ID,Value,PaymentDay,UtilizadoresFK")] Payments payments)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(payments).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.UtilizadoresFK = new SelectList(db.Utilizadores, "ID", "Name", payments.UtilizadoresFK);
-        //    return View(payments);
-        //}
-
-        // GET: Payments/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Payments payments = db.Payments.Find(id);
-            if (payments == null)
-            {
-                return HttpNotFound();
-            }
-            return View(payments);
-        }
-
-        // POST: Payments/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Payments payments = db.Payments.Find(id);
-            db.Payments.Remove(payments);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

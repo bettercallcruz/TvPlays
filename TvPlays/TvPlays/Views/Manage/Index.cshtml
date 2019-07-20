@@ -23,34 +23,38 @@
 <hr />
 
 <div class="profileContainer row">
-    <div class="col">
-        <p class="text-success">@ViewBag.StatusMessage</p>
-        <dl class="dl-horizontal">
-            <dt>Password:</dt>
-            <dd>
-                [
-                @if (Model.HasPassword)
-                {
-                    @Html.ActionLink("Change your password", "ChangePassword")
-                }
-                else
-                {
-                    @Html.ActionLink("Create", "SetPassword")
-                }
-                ]
-            </dd>
-            <dt>External Logins:</dt>
-            <dd>
-                @Model.Logins.Count [
-                @Html.ActionLink("Manage", "ManageLogins") ]
-            </dd>
-        </dl>
+    <div class="manageCol col">
+        <div class="managecard card">
+            <h4>Manage Your Account</h4>
+            <hr />
+            <p class="text-success">@ViewBag.StatusMessage</p>
+            <dl class="dl-horizontal">
+                <dt>Password:</dt>
+                <dd>
+                    [
+                    @if (Model.HasPassword)
+                    {
+                        @Html.ActionLink("Change your password", "ChangePassword")
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Create", "SetPassword")
+                    }
+                    ]
+                </dd>
+                <dt>External Logins:</dt>
+                <dd>
+                    @Model.Logins.Count [
+                    @Html.ActionLink("Manage", "ManageLogins") ]
+                </dd>
+            </dl>
+        </div>
     </div>
-    @* Div com as informacoes e rediretcs para o pagamento *@
-    <div class="col">
-        @if (User.IsInRole("Normal"))
-        {
-            @Html.Action("Create", "Payments")
-        }
+        @* Div com as informacoes e rediretcs para o pagamento *@
+    <div class="premiumCol col">
+               @if (User.IsInRole("Normal"))
+                {
+                    @Html.Action("Create", "Payments")
+                }
+        </div>
     </div>
-</div>

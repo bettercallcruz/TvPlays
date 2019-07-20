@@ -1,19 +1,21 @@
 ﻿@model TvPlays.Models.Comments
-
+@{
+    Layout = null;
+}
 @{
     ViewBag.Title = "Create";
 }
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form">
-    <div class="commentInput row">
-        <div class="form-group">
-            @Html.TextAreaFor(model => model.ContComment, new { htmlAttributes = new { @class = "commentInput" } })
+
+    <div class="form">
+        <div class="commentInput row">
+            <div class="form-group">
+                @Html.TextAreaFor(model => model.ContComment, new { htmlAttributes = new { @class = "commentInput" } })
+            </div>
+            <input type="submit" value="Comentar" class="btn btn-dark" />
         </div>
-        <input type="submit" value="Comentar" class="btn btn-dark" />
     </div>
-</div>
 }

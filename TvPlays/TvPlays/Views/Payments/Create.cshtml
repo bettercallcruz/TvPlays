@@ -1,32 +1,42 @@
 ﻿@model TvPlays.Models.Payments
-
 @{
-    ViewBag.Title = "Create";
+    Layout = null;
 }
+<div class="card">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Become a 'Premium' User</h4>
-        <hr />
+        <div class="form-horizontal">
+            <h4>Become a 'Premium' User</h4>
+            <hr />
+            <ul class="featuresUl">
+                <li>Unlimited Uploads!!</li>
+                <li>Max content lenght in Upload!!</li>
+                <li>And lot more things!!</li>
+            </ul>
+            <hr />
+            <h5>Prices</h5>
+            <ul class="pricesUl">
+                <li>10€ -> One Month</li>
+                <li>50€ -> Six Months</li>
+                <li>80€ -> One Year</li>
+            </ul>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.Value, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Value, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
+    }
+</div>

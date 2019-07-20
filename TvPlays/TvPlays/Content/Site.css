@@ -67,6 +67,17 @@ textarea {
     margin-bottom: 25px;
 }
 
+.manageCol, premiumCol {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.managecard {
+    padding: 75px;
+    max-height: 475px;
+}
+    
 
 
 
