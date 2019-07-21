@@ -46,9 +46,6 @@ namespace TvPlays.Models
         [Display(Name = "Sexo")]
         public string Sexo { get; set; }
 
-        //ICollection de Emojis
-        public virtual ICollection<Emojis> ListEmojis { get; set; }
-
         //ICollection de Clips
         public virtual ICollection<Clips> ListClips { get; set; }
 

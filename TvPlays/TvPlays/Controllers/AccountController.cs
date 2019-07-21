@@ -187,7 +187,6 @@ namespace TvPlays.Controllers
             //Criacao De Listas Vazias
             utilizador.ListClips = new List<Clips>();
             utilizador.ListPayments = new List<Payments>();
-            utilizador.ListEmojis = new List<Emojis>();
 
             if (ModelState.IsValid)
             {

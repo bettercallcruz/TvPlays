@@ -47,7 +47,7 @@ namespace TvPlays.Models
         public DbSet<Utilizadores> Utilizadores { get; set; }
         public DbSet<Clips> Clips { get; set; }
         public DbSet<Comments> Comments { get; set; }
-        public DbSet<Emojis> Emojis { get; set; }
+        public DbSet<Categories> Categories { get; set; }
         public DbSet<Payments> Payments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

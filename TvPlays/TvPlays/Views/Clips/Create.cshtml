@@ -25,6 +25,18 @@
         </div>
 
         <div class="form-group">
+            <span class="control-label col-md-2">Categorias</span>
+            <div class="col-md-10">
+                @{ string selected = "";}
+                @foreach (var item in ViewBag.ListCategories)
+                {
+                    <input type="checkbox" name="categoriasEscolhidas" value="@item.ID" @selected /> @item.Name
+                    <br />
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.Label("Ficheiro Clip:", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input type="file" name="fileupload" />
