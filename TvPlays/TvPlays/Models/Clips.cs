@@ -34,6 +34,8 @@ namespace TvPlays.Models
         //ICollection de Comentatiros
         public virtual ICollection<Comments> ListComments { get; set; }
 
+        //ICollection de Categorias
+        public virtual ICollection<Categories> ListCategories { get; set; }
 
     }
 
