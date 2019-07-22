@@ -5,9 +5,13 @@
     Layout = null;
 }
 
-<p>
-    @Html.ActionLink("New Category", "Create")
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("New Category", "Create") ||  @Html.ActionLink("Edit Category", "Edit")
+    </p>
+
+}
 
 <div class="carouselContainer container">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">

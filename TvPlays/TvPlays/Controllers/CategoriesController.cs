@@ -61,12 +61,24 @@ namespace TvPlays.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] Categories categories)
+        public ActionResult Create([Bind(Include = "ID,Name")] Categories categories, HttpPostedFileBase fileupload)
         {
+            string fileName = Path.GetFileName(fileupload.FileName);
+            string cont = fileupload.ContentType;
+            string path = Server.MapPath("~/App_Data/Videos/" + fileName);
+            fileupload.SaveAs(path);
+
+
             if (ModelState.IsValid)
             {
-                db.Categories.Add(categories);
+                var categoria = new Categories
+                {
+                    Name = categories.Name,
+                    PathToCategory = path
+                };
+
+
+                db.Categories.Add(categoria);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -94,13 +106,35 @@ namespace TvPlays.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name")] Categories categories)
+        public ActionResult Edit([Bind(Include = "ID,Name")] Categories categories, HttpPostedFileBase fileupload)
         {
+
+            Categories cat = db.Categories.Find(categories.ID);
+            string fileName = Path.GetFileName(fileupload.FileName);
+            string path;
+
+            if (cat != null)
+            {
+
+            if (fileupload != null)
+            {
+                path = Server.MapPath("~/App_Data/Videos/" + fileName);
+                fileupload.SaveAs(path);
+            } else {
+                path = categories.PathToCategory;
+            } 
             if (ModelState.IsValid)
             {
+
+
+                cat.Name = categories.Name;
+                cat.PathToCategory = path;
+
+
                 db.Entry(categories).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
             }
             return View(categories);
         }
@@ -126,6 +160,21 @@ namespace TvPlays.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Categories categories = db.Categories.Find(id);
+
+            //Se for Admin pode apagar qualquer Clip antes da verificacao do User == null && comment == null 
+            //porque o admin nao e um Utilizador normal da aplicação
+            if (User.IsInRole("Admin"))
+            {
+                db.Categories.Remove(categories);
+                db.SaveChanges();
+            }
+
+            //Verifica se tanto o user como o clip existem e retorna 404 se nao encontrar algum dos dois
+            if (categories == null)
+            {
+                return HttpNotFound();
+            }
+
             db.Categories.Remove(categories);
             db.SaveChanges();
             return RedirectToAction("Index");
