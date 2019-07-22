@@ -203,6 +203,19 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\CategoriesImg\3d.jpg" />
+    <Content Include="App_Data\CategoriesImg\action.jpg" />
+    <Content Include="App_Data\CategoriesImg\adv.jpg" />
+    <Content Include="App_Data\CategoriesImg\educa.jpg" />
+    <Content Include="App_Data\CategoriesImg\fantasy.jpg" />
+    <Content Include="App_Data\CategoriesImg\fps.jpg" />
+    <Content Include="App_Data\CategoriesImg\mmo.jpg" />
+    <Content Include="App_Data\CategoriesImg\puzzle.jpg" />
+    <Content Include="App_Data\CategoriesImg\rpg.jpg" />
+    <Content Include="App_Data\CategoriesImg\rts.jpg" />
+    <Content Include="App_Data\CategoriesImg\simu.jpg" />
+    <Content Include="App_Data\CategoriesImg\sports.jpg" />
+    <Content Include="App_Data\CategoriesImg\strat.jpg" />
     <Content Include="App_Data\Videos\asdasd.mp4" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -328,6 +341,7 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

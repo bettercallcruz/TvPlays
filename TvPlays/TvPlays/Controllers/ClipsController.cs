@@ -1,12 +1,7 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -65,24 +60,6 @@ namespace TvPlays.Controllers
             return View();
         }
 
-        // POST: Clips/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "ID,TimeClip,TitleClip,DateClip,PathClip,UserFK")] Clips clips)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Clips.Add(clips);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.UserFK = new SelectList(db.Utilizadores, "ID", "Name", clips.UserFK);
-        //    return View(clips);
-        //}
-
         [HttpPost]
         public ActionResult Create(HttpPostedFileBase fileupload, ClipsDTO clips, string[] categoriasEscolhidas)
         {
@@ -110,10 +87,10 @@ namespace TvPlays.Controllers
 
                 // criar uma lista com os objetos escolhidos de B
                 List<Categories> listCategories = new List<Categories>();
-                foreach (Categories item in listCategories)
+                foreach (string item in categoriasEscolhidas)
                 {
                     //procurar o objeto de B
-                    Categories category = db.Categories.Find(item.ID);
+                    Categories category = db.Categories.Find(Convert.ToInt32(item));
                     // adicioná-lo à lista
                     listCategories.Add(category);
                 }
@@ -152,6 +129,7 @@ namespace TvPlays.Controllers
                 return HttpNotFound();
             }
             ViewBag.UserFK = new SelectList(db.Utilizadores, "ID", "Name", clips.UserFK);
+            ViewBag.ListCategories = db.Categories.OrderBy(b => b.ID).ToList();
             return View(clips);
         }
 
@@ -159,26 +137,102 @@ namespace TvPlays.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,TitleClip,DateClip,PathClip,UserFK")] Clips clips)
+        public ActionResult Edit(int? id, HttpPostedFileBase fileupload, ClipsDTO clips, string[] categoriasEscolhidas)
         {
             Utilizadores user = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
-            Clips clip = db.Clips.Find(clips.ID);
-            
+            Clips clip = db.Clips.Find(id);
 
-            //Verificar se o utilizador Autenticado e se o mesmo é o dono do Clip, se for autoriza-se a alteração 
+
             if (user.ID.Equals(clip.UserFK))
             {
-                clip.TitleClip = clips.TitleClip;
-                db.Entry(clip).State = EntityState.Modified;
-                db.SaveChanges();
-                //return RedirectToAction("Index");
+
+                // ler da BD o objeto que se pretende editar
+                var aa = db.Clips.Include(b => b.ListCategories).Where(b => b.ID == id).SingleOrDefault();
+                string path;
+
+                if (fileupload != null) {
+
+                    string fileName = Path.GetFileName(fileupload.FileName);
+                    string cont = fileupload.ContentType;
+                    path = Server.MapPath("~/App_Data/Videos/" + fileName);
+                    fileupload.SaveAs(path);
+                }else
+                {
+                    path = clip.PathClip;
+                }
+
+
+                // avaliar se os dados são 'bons'
+                if (ModelState.IsValid)
+                {
+                    aa.TitleClip = clips.TitleClip;
+                    aa.PathClip = path;
+                    aa.DateClip = DateTime.Now;
+                }
+                else
+                {
+                    // gerar a lista de objetos de B que podem ser associados a A
+                    ViewBag.ListCategories = db.Categories.OrderBy(b => b.ID).ToList();
+                    // devolver o controlo à View
+                    return View(clips);
+                }
+
+                // tentar fazer o UPDATE
+                if (TryUpdateModel(aa, "", new string[] { nameof(aa.TitleClip), nameof(aa.PathClip), nameof(aa.DateClip), nameof(aa.ListCategories) }))
+                {
+
+                    // obter a lista de elementos de B
+                    var categorias = db.Categories.ToList();
+
+                    if (categoriasEscolhidas != null)
+                    {
+                        // se existirem opções escolhidas, vamos associá-las
+                        foreach (var bb in categorias)
+                        {
+                            if (categoriasEscolhidas.Contains(bb.ID.ToString()))
+                            {
+                                // se uma opção escolhida ainda não está associada, cria-se a associação
+                                if (!aa.ListCategories.Contains(bb))
+                                {
+                                    aa.ListCategories.Add(bb);
+                                }
+                            }
+                            else
+                            {
+                                // caso exista associação para uma opção que não foi escolhida, 
+                                // remove-se essa associação
+                                aa.ListCategories.Remove(bb);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // não existem opções escolhidas!
+                        // vamos eliminar todas as associações
+                        foreach (var bb in categorias)
+                        {
+                            if (aa.ListCategories.Contains(bb))
+                            {
+                                aa.ListCategories.Remove(bb);
+                            }
+                        }
+                    }
+
+                    // guardar as alterações
+                    db.SaveChanges();
+
+                    // devolver controlo à View
+                    return RedirectToAction("Index");
+                }
+           
+
+            // se cheguei aqui, é pq alguma coisa correu mal
+            ModelState.AddModelError("", "Alguma coisa correu mal...");
             }
-            else
-            {
-                //Erro porque o comment nao e dele
-            }
-            ViewBag.UserFK = new SelectList(db.Utilizadores, "ID", "Name", clips.UserFK);
+            // gerar a lista de objetos de B que podem ser associados a A
+            ViewBag.ListaObjetosDeB = db.Categories.OrderBy(b => b.ID).ToList();
+            //ViewBag.UserFK = new SelectList(db.Utilizadores, "ID", "Name", clips.UserFK);
+            // visualizar View...
             return View(clips);
         }
 

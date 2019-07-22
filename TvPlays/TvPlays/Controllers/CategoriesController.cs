@@ -38,7 +38,7 @@ namespace TvPlays.Controllers
         //GET: video de cada Clip
         public ActionResult ImageCategory(string imagePath)
         {
-            var file = File(imagePath, "image/jepg");
+            var file = File(imagePath, "image/jpg");
             return file;
         }
 

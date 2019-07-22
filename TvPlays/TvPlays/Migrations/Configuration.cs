@@ -76,19 +76,19 @@ namespace TvPlays.Migrations
             //-----ADICIONA OS EMOJIS A BASE DE DADOS
             var categories = new List<Categories>
             {
-                new Categories {ID=1, Name="Action", ListClips= { } },
-                new Categories {ID=2, Name="FPS", ListClips= { } },
-                new Categories {ID=3, Name="Adventure", ListClips= { } },
-                new Categories {ID=4, Name="RPG", ListClips= { } },
-                new Categories {ID=5, Name="Simulation", ListClips= { } },
-                new Categories {ID=6, Name="Strategy", ListClips= { } },
-                new Categories {ID=7, Name="Sports", ListClips= { } },
-                new Categories {ID=8, Name="MMO", ListClips= { } },
-                new Categories {ID=9, Name="RTS", ListClips= { } },
-                new Categories {ID=10, Name="Fantasy", ListClips= { } },
-                new Categories {ID=11, Name="3D", ListClips= { } },
-                new Categories {ID=12, Name="Puzzle", ListClips= { } },
-                new Categories {ID=13, Name="Educational", ListClips= { } }
+                new Categories {ID=1, Name="Action", PathToCategory = "action.jpg" ,ListClips= { } },
+                new Categories {ID=2, Name="FPS", PathToCategory = "fps.jpg", ListClips= { } },
+                new Categories {ID=3, Name="Adventure", PathToCategory = "adv.jpg", ListClips= { } },
+                new Categories {ID=4, Name="RPG", PathToCategory = "rpg.jpg", ListClips= { } },
+                new Categories {ID=5, Name="Simulation", PathToCategory = "simu.jpg", ListClips= { } },
+                new Categories {ID=6, Name="Strategy", PathToCategory = "strat.jpg", ListClips= { } },
+                new Categories {ID=7, Name="Sports", PathToCategory = "sports.jpg", ListClips= { } },
+                new Categories {ID=8, Name="MMO", PathToCategory = "mmo.jpg", ListClips= { } },
+                new Categories {ID=9, Name="RTS", PathToCategory = "rts.jpg", ListClips= { } },
+                new Categories {ID=10, Name="Fantasy", PathToCategory = "fantasy.jpg", ListClips= { } },
+                new Categories {ID=11, Name="3D", PathToCategory = "3d.jpg", ListClips= { } },
+                new Categories {ID=12, Name="Puzzle", PathToCategory = "puzzle.jpg", ListClips= { } },
+                new Categories {ID=13, Name="Educational", PathToCategory = "educa.jpg", ListClips= { } }
             };
             categories.ForEach(ee => context.Categories.AddOrUpdate(e => e.ID, ee));
             context.SaveChanges();
