@@ -108,10 +108,13 @@ namespace TvPlays.Controllers
 
                     db.Clips.Add(clip);
                     db.SaveChanges();
-                    return View();
+
+
+
+                    return RedirectToAction("Index");
                 }
 
-                return View(clips);
+                return View();
             }
             return View();
         }
