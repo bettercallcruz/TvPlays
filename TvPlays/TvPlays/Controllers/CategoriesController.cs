@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -36,9 +37,16 @@ namespace TvPlays.Controllers
         }
 
         //GET: video de cada Clip
+        public ActionResult Image(string imagePath)
+        {
+            var dir = Server.MapPath("/App_Data/CategoriesImg");
+            var path = Path.Combine(dir, imagePath); //validate the path for security or use other means to generate the path.
+            return base.File(path, "image/jpeg");
+        }
+
         public ActionResult ImageCategory(string imagePath)
         {
-            var file = File(imagePath, "image/jpg");
+            var file = File(imagePath, "image/jpeg");
             return file;
         }
 
