@@ -80,6 +80,7 @@ namespace TvPlays.Controllers
 
                 db.Entry(user).State = EntityState.Modified;
 
+                //Dar logoff
                 //return RedirectToAction("LogOff", "Account"); 
             }
             ViewBag.UtilizadoresFK = new SelectList(db.Utilizadores, "ID", "Name", payments.UtilizadoresFK);
