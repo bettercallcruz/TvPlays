@@ -38,6 +38,7 @@ namespace TvPlays.Controllers
 
         // GET: Comments/Create
         [HttpGet]
+        [Authorize(Roles = "Premium,Normal")]
         public ActionResult Create()
         {
             ViewBag.ClipsFK = new SelectList(db.Clips, "ID", "TitleClip");
@@ -77,15 +78,14 @@ namespace TvPlays.Controllers
                 //Adiciona a base de dados e Guarda
                 db.Comments.Add(comment);
                 db.SaveChanges();
-
-                //Tentar dar redirect para os clips '/Clips/Details/X'
-
+                return View();
             }
             //Se o modelo nao tiver valiado apresentar erro
-            return View(comments);
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         // GET: Comments/Edit/5
+        [Authorize(Roles = "Premium,Normal")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -106,6 +106,7 @@ namespace TvPlays.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Premium,Normal")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID, ContComment")] Comments comments)
         {
@@ -120,19 +121,22 @@ namespace TvPlays.Controllers
                     comment.ContComment = comments.ContComment;
                     db.Entry(comment).State = EntityState.Modified;
                     db.SaveChanges();
-                    //return RedirectToAction("Index");
+                    return RedirectToAction("Details", "Clips", new { id = comment.ClipsFK });
+
                 }
                 else
                 {
-                    //Erro porque o comment nao e dele
+                    return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
                 }
+
             }
             ViewBag.ClipsFK = new SelectList(db.Clips, "ID", "TitleClip", comments.ClipsFK);
             ViewBag.UtilizadoresFK = new SelectList(db.Utilizadores, "ID", "Name", comments.UtilizadoresFK);
-            return View(comments);
+            return RedirectToAction("Details", "Clips", new { id = comments.ClipsFK });
         }
 
         // GET: Comments/Delete/5
+        [Authorize(Roles = "Admin,Premium,Normal")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -147,6 +151,7 @@ namespace TvPlays.Controllers
             return View(comments);
         }
 
+        [Authorize(Roles = "Admin,Premium,Normal")]
         // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -162,6 +167,7 @@ namespace TvPlays.Controllers
             {
                 db.Comments.Remove(comments);
                 db.SaveChanges();
+                return RedirectToAction("Details", "Clips", new { id = comments.ClipsFK });
             }
 
             //Verificar se eles existem
@@ -175,12 +181,12 @@ namespace TvPlays.Controllers
             {
                 db.Comments.Remove(comments);
                 db.SaveChanges();
-                //return RedirectToAction("Index");
+                return RedirectToAction("Details", "Clips", new { id = comments.ClipsFK});
             } else
             {
-                //Erro porque o comment nao e dele
+                return new HttpStatusCodeResult(400);
             }
-            return View(comments);
+
         }
 
         protected override void Dispose(bool disposing)
