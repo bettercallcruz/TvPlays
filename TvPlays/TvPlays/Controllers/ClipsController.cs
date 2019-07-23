@@ -66,7 +66,8 @@ namespace TvPlays.Controllers
 
             Utilizadores user = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
 
-            if (fileupload != null && user != null)
+            //se o ficjheiro recebido nao for nulo, se o user nao for nulo e a publicaçao for valida entao pode criar clip
+            if (fileupload != null && user != null && validate(fileupload))
             {
                 string fileName = Path.GetFileName(fileupload.FileName);
                 string cont = fileupload.ContentType;
@@ -109,14 +110,11 @@ namespace TvPlays.Controllers
                     db.Clips.Add(clip);
                     db.SaveChanges();
 
-
-
                     return RedirectToAction("Index");
                 }
-
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Clips/Edit/5
@@ -290,6 +288,40 @@ namespace TvPlays.Controllers
             }
             return View(clips);
         }
+
+        public Boolean validate(HttpPostedFileBase file) {
+            //se normal get last post datetime adicionar 7 dias 
+            if (User.IsInRole("Normal")) {
+                Utilizadores user1 = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
+                Clips lastClip  = user1.ListClips.Last();
+                DateTime validade = lastClip.DateClip.AddDays(7);
+                if (DateTime.Now >= validade && file.ContentLength < 10485760)
+                {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            if (User.IsInRole("Premium"))
+            {
+                Utilizadores user1 = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
+                Clips lastClip = user1.ListClips.Last();
+                DateTime validade = lastClip.DateClip.AddDays(7);
+                if (file.ContentLength < (10485760)*(2))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            //se nao é nenhum dos roles 
+            return false;
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {
