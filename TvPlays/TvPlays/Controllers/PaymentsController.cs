@@ -80,7 +80,8 @@ namespace TvPlays.Controllers
 
                 db.Entry(user).State = EntityState.Modified;
 
-                //return RedirectToAction("LogOff", "Account"); 
+                //Voltar para a View Index do 'Manage'  
+                //return RedirectToAction("Index");
             }
             ViewBag.UtilizadoresFK = new SelectList(db.Utilizadores, "ID", "Name", payments.UtilizadoresFK);
             return View(payments);

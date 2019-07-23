@@ -78,41 +78,5 @@ textarea {
     max-height: 475px;
 }
 
-.IPTcol, .PROFcol, .Alunoscol{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    text-align:center;
-}
-
-.AlunosRow, .PROFrow {
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-}
-
-.imgFooter{
-    height: 6rem;
-}
-
-.loginButton{
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.registerButton{
-    justify-content: space-around;
-    align-items: center;
-}
-
-.carouselContainer{
-    margin-top: 25px;
-}
-
-.descriptionRow > .col{
-    flex-direction: column;
-        flex-wrap: wrap;
-}
-
 
 
