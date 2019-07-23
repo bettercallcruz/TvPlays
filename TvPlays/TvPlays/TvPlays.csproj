@@ -216,6 +216,7 @@
     <Content Include="App_Data\CategoriesImg\simu.jpg" />
     <Content Include="App_Data\CategoriesImg\sports.jpg" />
     <Content Include="App_Data\CategoriesImg\strat.jpg" />
+    <Content Include="Content\logoIPT.jpg" />
     <Content Include="App_Data\Videos\asdasd.mp4" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
