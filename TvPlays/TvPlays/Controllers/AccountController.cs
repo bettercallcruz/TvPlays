@@ -90,6 +90,8 @@ namespace TvPlays.Controllers
             {
                 return View(model);
             }
+            userRole();
+
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -475,6 +477,45 @@ namespace TvPlays.Controllers
             base.Dispose(disposing);
         }
 
+        public void userRole()
+        {
+            Utilizadores user1 = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
+            Payments p = db.Payments.Find(user1.ListPayments.Last().ID);
+            DateTime validade;
+            if (User.("Premium")) {
+                switch (p.Value.ToString())
+                {
+                    case "Dez":
+                        validade = p.PaymentDay.AddMonths(1);
+                        if (validade < DateTime.Now)
+                        {
+                            _userManager.RemoveFromRole(User.Identity.GetUserId(), "Premium");
+                            _userManager.AddToRole(User.Identity.GetUserId(), "Normal");
+
+                        }
+                        break;
+                    case "Cinquenta":
+                        validade = p.PaymentDay.AddMonths(6);
+                        if (validade < DateTime.Now)
+                        {
+                            _userManager.RemoveFromRole(User.Identity.GetUserId(), "Premium");
+                            _userManager.AddToRole(User.Identity.GetUserId(), "Normal");
+
+                        }
+                        break;
+                    case "Oitenta":
+                        validade = p.PaymentDay.AddMonths(12);
+                        if (validade < DateTime.Now)
+                        {
+                            _userManager.RemoveFromRole(User.Identity.GetUserId(), "Premium");
+                            _userManager.AddToRole(User.Identity.GetUserId(), "Normal");
+
+                        }
+                        break;
+                }
+            }
+           
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
@@ -534,4 +575,6 @@ namespace TvPlays.Controllers
         }
         #endregion
     }
+
+    
 }
