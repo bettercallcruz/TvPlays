@@ -18,92 +18,96 @@
             @* Percore todos os comentarios associados ao Clip e lista-os *@
             @foreach (var item in Model.ListComments)
             {
-            <div class="comment row">
-                <div class="col">
-                    <h5>@Html.DisplayFor(modelItem => item.User.Name)</h5>
-                    @Html.DisplayFor(modelItem => item.ContComment)
+                <div class="comment row">
+                    <div class="col">
+                        <h5>@Html.DisplayFor(modelItem => item.User.Name)</h5>
+                        @Html.DisplayFor(modelItem => item.ContComment)
+                    </div>
+                    @* Se o user for o dono do Comment entao pode apagar e editar *@
+                    @if (User.Identity.Name.Equals(item.User.Email))
+                    {
+                        <div class="col">
+                            <div class="editIcon row">
+                                <a href="@Url.Action("Edit", "Comments", new { id = item.ID})">
+                                    <span>✏️</span>
+                                </a>
+                            </div>
+                            <div class="deleteIcon row">
+                                <a href="@Url.Action("Delete", "Comments", new { id = item.ID})">
+                                    <span>🗑️</span>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    @* Se for o admin pode eliminar o comentario *@
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="col">
+                            <div class="deleteIcon row">
+                                <a href="@Url.Action("Delete", "Comments", new { id = item.ID})">
+                                    <span>🗑️</span>
+                                </a>
+                            </div>
+                        </div>
+                    }
                 </div>
-                @* Se o user for o dono do Comment entao pode apagar e editar *@
-                @if (User.Identity.Name.Equals(item.User.Email))
-                {
-                    <div class="col">
-                        <div class="editIcon row">
-                            <a href="@Url.Action("Edit", "Comments", new { id = item.ID})">
-                                <span>✏️</span>
-                            </a>
-                        </div>
-                        <div class="deleteIcon row">
-                            <a href="@Url.Action("Delete", "Comments", new { id = item.ID})">
-                                <span>🗑️</span>
-                            </a>
-                        </div>
-                    </div>
-                }
-                @* Se for o admin pode eliminar o comentario *@
-                @if (User.IsInRole("Admin"))
-                {
-                    <div class="col">
-                        <div class="deleteIcon row">
-                            <a href="@Url.Action("Delete", "Comments", new { id = item.ID})">
-                                <span>🗑️</span>
-                            </a>
-                        </div>
-                    </div>
-                }
-            </div>
                 <hr />
             }
             @* Tem de estar autenticado e os 'Admin' nao podem fazer comentarios *@
-            @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin")) {
-                @Html.Action("Create", "Comments", new { id = Model.ID})
+            @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
+            {
+                @Html.Action("Create", "Comments", new { id = Model.ID })
             }
         </div>
     </div>
 </div>
 
+<hr />
 
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TitleClip)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TitleClip)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateClip)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateClip)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PathClip)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PathClip)
-        </dd>
-
-    </dl>
+<div class="row">
+    <div class="col">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.User.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.User.Name)
+            </dd>
+        </dl>
+    </div>
+    <div class="col">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TitleClip)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TitleClip)
+            </dd>
+        </dl>
+    </div>
+    <div class="col">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DateClip)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateClip)
+            </dd>
+        </dl>
+    </div>
 </div>
 
+@if (User.Identity.Name.Equals(Model.User.Email))
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.ID })
+    </p>
+}
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Delete", "Delete", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Delete", "Delete", new { id = Model.ID })
+    </p>
+}
