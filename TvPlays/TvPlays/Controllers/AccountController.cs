@@ -482,7 +482,7 @@ namespace TvPlays.Controllers
             Utilizadores user1 = db.Utilizadores.SingleOrDefault(u => u.Email.Equals(User.Identity.Name));
             Payments p = db.Payments.Find(user1.ListPayments.Last().ID);
             DateTime validade;
-            if (User.("Premium")) {
+            if (User.IsInRole("Premium")) {
                 switch (p.Value.ToString())
                 {
                     case "Dez":
