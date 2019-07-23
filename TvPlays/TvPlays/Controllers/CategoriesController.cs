@@ -61,6 +61,7 @@ namespace TvPlays.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "ID,Name")] Categories categories, HttpPostedFileBase fileupload)
         {
             string fileName = Path.GetFileName(fileupload.FileName);
@@ -80,7 +81,7 @@ namespace TvPlays.Controllers
 
                 db.Categories.Add(categoria);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             return View(categories);
@@ -105,36 +106,38 @@ namespace TvPlays.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name")] Categories categories, HttpPostedFileBase fileupload)
+        [Authorize(Roles="Admin")]
+        public ActionResult Edit([Bind(Include = "ID,Name,PathToCategory")] Categories categories, HttpPostedFileBase fileupload)
         {
 
             Categories cat = db.Categories.Find(categories.ID);
-            string fileName = Path.GetFileName(fileupload.FileName);
+            
             string path;
-
-            if (cat != null)
-            {
 
             if (fileupload != null)
             {
+                string fileName = Path.GetFileName(fileupload.FileName);
                 path = Server.MapPath("~/App_Data/Videos/" + fileName);
                 fileupload.SaveAs(path);
-            } else {
-                path = categories.PathToCategory;
-            } 
-            if (ModelState.IsValid)
-            {
-
-
-                cat.Name = categories.Name;
-                cat.PathToCategory = path;
-
-
-                db.Entry(categories).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
+            else
+            {
+                path = cat.PathToCategory;
+            }
+
+
+            if (cat != null)
+            {
+                if (ModelState.IsValid)
+                {
+
+                    cat.ID = categories.ID;
+                    cat.Name = categories.Name;
+                    cat.PathToCategory = path;
+
+                }
+                db.SaveChanges();
+                return View(categories);
             }
             return View(categories);
         }
