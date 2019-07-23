@@ -4,11 +4,14 @@
     ViewBag.Title = "Index";
 }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.IsInRole("Normal,Premium"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
 
-<hr />
+    <hr />
+}
 
 <div class="row">
     @foreach (var item in Model)
@@ -25,7 +28,7 @@
             </div>
         </div>
     }
-    </div>
+</div>
 
 <link href="~/Content/categorias.css" rel="stylesheet" type="text/css" />
 
